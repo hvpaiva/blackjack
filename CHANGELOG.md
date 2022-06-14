@@ -9,4 +9,4 @@ All notable changes to this project will be documented in this file. This change
 - UI for blackjack.
 - Graphics for blackjack's cards.
 
-[1.0.0]: https://github.com/your-name/blackjack/compare/1.0.0...HEAD
+[1.0.0]: https://github.com/hvpaiva/blackjack/compare/1.0.0...HEAD
