@@ -92,15 +92,9 @@
 
 (defn print-player
   "Prints the player."
-  [player]
-  (let [player-name (:name player)
-        cards (:hand player)]
+  [player masked?]
+  (let [masked-player (if masked? (show-masked player) player)
+        player-name (:name masked-player)
+        cards (:hand masked-player)]
     (println player-name)
-    (print-cards cards))
-  (println (:score player) "points")
-  (println "--------------"))
-
-(defn print-masked-player
-  "Prints the player masked."
-  [player]
-  (print-player (show-masked player)))
+    (print-cards cards)))
