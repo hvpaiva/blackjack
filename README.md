@@ -1,10 +1,29 @@
 # blackjack
 
-A Clojure library designed to ... well, that part is up to you.
+A Blackjack clojure console game.
 
-## Usage
+## Game Rules
 
-FIXME
+[consultar regras](/doc/intro.md)
+
+## Game structure
+
+The overall game structure is as follows:
+
+- **core:** entry point for the game, runs the game logic.
+- **game:** mantains the game logic.
+- **engine:** logic for card dealing and player creation.
+- **ui:** user interface.
+- **graphics:** graphics for cards.
+
+# Game
+
+![game-image](/images/game.png)
+
+The game is played in a single player mode. You are against the Dealer.
+Every turn you can choose to deal a card or to pass, and the dealer chooses to himself as well.
+
+In the end, the player with the score closest to 21 wins.
 
 ## License
 
