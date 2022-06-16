@@ -1,5 +1,5 @@
 (ns blackjack.ui
-  (:require [blackjack.graphics :as graphics]))
+  (:require [blackjack.graphics :as b.graphics]))
 
 
 (def language "en")
@@ -45,10 +45,10 @@
   {:added "1.0.0"}
   [players, masked-dealer?]
   (println "--------------")
-  (graphics/print-player (:dealer players) masked-dealer?)
+  (b.graphics/print-player (:dealer players) masked-dealer?)
   (println (if masked-dealer? "X" (:score (:dealer players))) (:score (localize)))
   (println "--------------")
-  (graphics/print-player (:player players) false)
+  (b.graphics/print-player (:player players) false)
   (println (:score (:player players)) (:score (localize)))
   (println "--------------"))
 

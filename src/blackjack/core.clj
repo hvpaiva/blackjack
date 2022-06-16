@@ -1,4 +1,4 @@
 (ns blackjack.core
-  (:require [blackjack.game :as game]))
+  (:require [blackjack.game :as b.game]))
 
-(game/start-game true)
+(b.game/start-game)

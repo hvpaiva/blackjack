@@ -1,6 +1,6 @@
 (ns blackjack.game
-  (:require [blackjack.engine :as engine]
-            [blackjack.ui :as ui]))
+  (:require [blackjack.engine :as b.engine]
+            [blackjack.ui :as b.ui]))
 
 (def win-score-limiar 21)
 (def dealer-name "Dealer")
@@ -17,8 +17,8 @@
   [players]
   (let [player (:player players)
         dealer (:dealer players)
-        player-score (engine/score (:hand player))
-        dealer-score (engine/score (:hand dealer))]
+        player-score (b.engine/score (:hand player))
+        dealer-score (b.engine/score (:hand dealer))]
     (cond
       (= player-score dealer-score) dealer
       (and (> player-score win-score-limiar) (> dealer-score win-score-limiar)) (if (< player-score dealer-score) player dealer)
@@ -32,42 +32,42 @@
   "Returns true if dealer should continue."
   {:added "1.0.0"}
   [players dealer-decision?]
-  (let [player-score (engine/score (:hand (:player players)))
-        dealer-score (engine/score (:hand (:dealer players)))]
+  (let [player-score (b.engine/score (:hand (:player players)))
+        dealer-score (b.engine/score (:hand (:dealer players)))]
     (let [continues? (dealer-decision? dealer-score player-score)]
-      (ui/dealer-decision-output continues?)
+      (b.ui/dealer-decision-output continues?)
       continues?)))
 
 (defn- player-continues?
   "Returns true if player should continue."
   {:added "1.0.0"}
   [players]
-  (and (< (engine/score (:hand (:player players))) win-score-limiar) (ui/player-decision?)))
+  (and (< (b.engine/score (:hand (:player players))) win-score-limiar) (b.ui/player-decision?)))
 
 (defn- deal
   "Deals cards to player."
   {:added "1.0.0"}
   [player]
-  (engine/deal-card player))
+  (b.engine/deal-card player))
 
 (defn- check-score
   "Checks the score of the players."
   {:added "1.0.0"}
   [players]
-  (ui/wins-output (:name (win players))))
+  (b.ui/wins-output (:name (win players))))
 
 (defn- end-game
   "Ends the game."
   {:added "1.0.0"}
   [players]
-  (ui/print-players players false)
+  (b.ui/print-players players false)
   (check-score players))
 
 (defn- game-loop
   "Starts the game loop."
   {:added "1.0.0"}
   [players masked?]
-  (ui/print-players players masked?)
+  (b.ui/print-players players masked?)
   (let [player-decision? (and (:decision (:player players)) (player-continues? players))
         dealer-decision? (and (:decision (:dealer players)) (dealer-continues? players dealer-decision?))
         player (assoc (:player players) :decision player-decision?)
@@ -82,8 +82,11 @@
 (defn start-game
   "Starts a new game."
   {:added "1.0.0"}
-  [masked?]
-  (let [player (engine/new-player (ui/player-name))
-        dealer (engine/new-player dealer-name)
-        players {:dealer dealer :player player}]
-    (game-loop players masked?)))
+  ([] (start-game true))
+  ([masked?]
+   (let [player (b.engine/new-player (b.ui/player-name))
+         dealer (b.engine/new-player dealer-name)
+         players {:dealer dealer :player player}]
+     (game-loop players masked?))))
+
+
